@@ -25,7 +25,7 @@ Content-Type: application/json
 ### note
 POST http://localhost:3000/api/note
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjksImVtYWlsIjoidGVzODhAZXhhbXBsZS5jb20iLCJpYXQiOjE3NjAxMjgwMTgsImV4cCI6MTc2MDEyODA3OH0.uJNaABAbLvui3QipNNe-yWTrfmB3sueEdchLvr4FQ2A
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoidGVzODhAZXhhbXBsZS5jb20iLCJpYXQiOjE3NjAxMzU0MTYsImV4cCI6MTc2MDEzNTQ3Nn0.llidKp9Py6xoyyUQzqaU1yFstN1Q6lott2iFdLtpRc0
 
 {
     "title": "Test Note",

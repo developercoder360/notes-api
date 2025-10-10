@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UseGuards } from '@nestjs/common';
 import { CreateNoteDto } from './dto/create-note.dto';
 import { UpdateNoteDto } from './dto/update-note.dto';
 import { PrismaService } from 'src/prisma.service';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Injectable()
 export class NoteService {
@@ -16,8 +17,9 @@ export class NoteService {
     return this.prismaService.note.create({ data: { ...createNoteDto, userId } });
   }
 
+  @UseGuards(AuthGuard)
   findAll() {
-    return `This action returns all note`;
+    return this.prismaService.note.findMany();  
   }
 
   findOne(id: number) {

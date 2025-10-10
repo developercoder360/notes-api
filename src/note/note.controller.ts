@@ -9,12 +9,13 @@ export class NoteController {
   constructor(private readonly noteService: NoteService) { }
 
   @UseGuards(AuthGuard)
-  @Post()
+  @Post("create")
   create(@Body() createNoteDto: CreateNoteDto, @Request() req: { user: { sub: number } }) {
     const userId = req['user']['sub'];
     return this.noteService.create({ ...createNoteDto }, userId);
   }
 
+  @UseGuards(AuthGuard)
   @Get()
   findAll() {
     return this.noteService.findAll();
