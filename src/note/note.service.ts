@@ -9,8 +9,11 @@ export class NoteService {
   constructor(private readonly prismaService: PrismaService) { }
 
 
-  create(createNoteDto: CreateNoteDto) {
-    
+  create(createNoteDto: CreateNoteDto, userId: number) { // Create a new note
+
+    console.log('createNoteDto', createNoteDto, userId);
+
+    return this.prismaService.note.create({ data: { ...createNoteDto, userId } });
   }
 
   findAll() {
