@@ -1,12 +1,8 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// Prisma Schema
+// Learn more: https://pris.ly/d/prisma-schema
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -14,11 +10,28 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// user model
+// User model
 model User {
   id        Int      @id @default(autoincrement())
-  email     String   @unique
-  password  String
+  name      String   @db.VarChar(100)
+  email     String   @unique @db.VarChar(255)
+  password  String   @db.VarChar(255)
+  notes     Note[]   @relation("UserNotes")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@map("users") // optional: rename table to lowercase
+}
+
+// Note model
+model Note {
+  id        Int      @id @default(autoincrement())
+  title     String   @db.VarChar(255)
+  content   String
+  userId    Int
+  user      User     @relation("UserNotes", fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("notes") // optional: rename table to lowercase
 }

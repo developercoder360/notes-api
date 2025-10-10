@@ -7,6 +7,27 @@ Content-Type: application/json
 
 {
     "name": "Test User",
-    "email": "test@example.com",
+    "email": "tes88@example.com",
     "password": "Password@925"
+}
+
+
+
+### Login
+POST http://localhost:3000/api/login
+Content-Type: application/json
+
+{
+    "email": "tes88@example.com",
+    "password": "Password@925"
+}
+
+### note
+POST http://localhost:3000/api/note
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjksImVtYWlsIjoidGVzODhAZXhhbXBsZS5jb20iLCJpYXQiOjE3NjAxMjgwMTgsImV4cCI6MTc2MDEyODA3OH0.uJNaABAbLvui3QipNNe-yWTrfmB3sueEdchLvr4FQ2A
+
+{
+    "title": "Test Note",
+    "content": "This is a test note"
 }
