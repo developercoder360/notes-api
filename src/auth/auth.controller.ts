@@ -4,7 +4,7 @@ import { AuthService } from './auth.service';
 
 @Controller('api')
 export class AuthController {
-    constructor(private authService: AuthService) { }
+    constructor(private readonly authService: AuthService) { }
     @Post('register')
     register(@Body() registerDto: RegisterDto) {
         return this.authService.register(registerDto);
