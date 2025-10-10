@@ -1,37 +1,37 @@
-// Prisma Schema
-// Learn more: https://pris.ly/d/prisma-schema
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
   provider = "prisma-client-js"
+  output   = "../generated/prisma"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
 // User model
 model User {
   id        Int      @id @default(autoincrement())
-  name      String   @db.VarChar(100)
-  email     String   @unique @db.VarChar(255)
-  password  String   @db.VarChar(255)
+  name      String
+  email     String   @unique
+  password  String
   notes     Note[]   @relation("UserNotes")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  @@map("users") // optional: rename table to lowercase
 }
 
 // Note model
 model Note {
   id        Int      @id @default(autoincrement())
-  title     String   @db.VarChar(255)
+  title     String
   content   String
   userId    Int
   user      User     @relation("UserNotes", fields: [userId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  @@map("notes") // optional: rename table to lowercase
 }

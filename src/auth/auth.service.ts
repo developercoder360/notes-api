@@ -8,10 +8,12 @@ import { LoginDto } from './dto/login.dto';
 
 @Injectable()
 export class AuthService {
-    private readonly logger = new Logger(AuthService.name);
-    constructor(private readonly userService: UserService, private readonly jwtService: JwtService) { }
 
-    async register(registerDto: RegisterDto) {
+    private readonly logger = new Logger(AuthService.name); // Logger for AuthService
+
+    constructor(private readonly userService: UserService, private readonly jwtService: JwtService) { } // Inject UserService and JwtService
+
+    async register(registerDto: RegisterDto) { // Register a new user
         try {
             // 1. Check if email already exists
             const existingUser = await this.userService.getUserByEmail(registerDto.email);
@@ -44,7 +46,7 @@ export class AuthService {
     }
 
     // login
-    async login(loginDto: LoginDto) {
+    async login(loginDto: LoginDto) { // Login a user 
         try {
             // 1. Check if email exists
             const user = await this.userService.getUserByEmail(loginDto.email);
@@ -63,8 +65,6 @@ export class AuthService {
             // 4. Generate JWT token
             const payload = { sub: user.id, email: user.email };
             const token = await this.jwtService.signAsync(payload, { secret: jwtConstants.secret });
-
-            // const { password, ...safeUser } = user;
 
             // 5. Return token + user
             return {

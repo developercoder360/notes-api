@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request } from '@nestjs/common';
 import { NoteService } from './note.service';
 import { CreateNoteDto } from './dto/create-note.dto';
 import { UpdateNoteDto } from './dto/update-note.dto';
@@ -9,15 +9,18 @@ export class NoteController {
   constructor(private readonly noteService: NoteService) { }
 
   @UseGuards(AuthGuard)
-  @Post()
-  create(@Body() createNoteDto: CreateNoteDto) {
-    return this.noteService.create(createNoteDto);
+  @Post("create")
+  create(@Body() createNoteDto: CreateNoteDto, @Request() req: { user: { sub: number } }) {
+    const userId = req['user']['sub'];
+    return this.noteService.create({ ...createNoteDto }, userId);
   }
 
+  @UseGuards(AuthGuard)
   @Get()
   findAll() {
     return this.noteService.findAll();
   }
+
 
   @Get(':id')
   findOne(@Param('id') id: string) {
