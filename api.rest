@@ -1,8 +1,9 @@
-http://localhost:3000
-
+@baseUrl = http://localhost:3000
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoidGVzODhAZXhhbXBsZS5jb20iLCJpYXQiOjE3NjAzNzIyMjEsImV4cCI6MTc2MDM3MjI4MX0.ZrrpsW9pnkv_P3EiKj-Nl8w59gLHMU3WtsqXmAQSRIo
 
 ###
-POST http://localhost:3000/api/register
+# 👤 Register a new user
+POST {{baseUrl}}/api/register
 Content-Type: application/json
 
 {
@@ -11,10 +12,9 @@ Content-Type: application/json
     "password": "Password@925"
 }
 
-
-
-### Login
-POST http://localhost:3000/api/login
+###
+# 🔐 Login user
+POST {{baseUrl}}/api/login
 Content-Type: application/json
 
 {
@@ -22,12 +22,39 @@ Content-Type: application/json
     "password": "Password@925"
 }
 
-### note
-POST http://localhost:3000/api/note
+###
+# 📝 Create a new note
+POST {{baseUrl}}/api/notes
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoidGVzODhAZXhhbXBsZS5jb20iLCJpYXQiOjE3NjAxMzU0MTYsImV4cCI6MTc2MDEzNTQ3Nn0.llidKp9Py6xoyyUQzqaU1yFstN1Q6lott2iFdLtpRc0
+Authorization: Bearer {{token}}
 
 {
-    "title": "Test Note",
-    "content": "This is a test note"
+    "title": "My First Note",
+    "content": "This is a sample note content."
 }
+
+###
+# 📋 Get all notes of logged-in user
+GET {{baseUrl}}/api/notes
+Authorization: Bearer {{token}}
+
+###
+# 🔍 Get a single note by ID
+GET {{baseUrl}}/api/notes/1
+Authorization: Bearer {{token}}
+
+###
+# ✏️ Update a note
+PATCH {{baseUrl}}/api/notes/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "title": "Updated Note Title",
+    "content": "Updated note content."
+}
+
+###
+# ❌ Delete a note
+DELETE {{baseUrl}}/api/notes/1
+Authorization: Bearer {{token}}
